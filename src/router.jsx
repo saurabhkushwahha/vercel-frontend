@@ -17,7 +17,7 @@ import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import ResourcesBlog from "./pages/ResourcesBlog";
 import FounderStory from "./pages/SuccessStories";
 import GetInfo from "./pages/admin/getInfo";
-import ShowSchedule from "./pages/ShowSchedule";
+import ShowSchedule from "./pages/showSchedule";
 import UserDashboard from "./components/Dashboard/UserDashboard";
 import AddSchedule from "./pages/admin/addShedule";
 

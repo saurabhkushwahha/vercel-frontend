@@ -19,8 +19,7 @@ import FounderStory from "./pages/SuccessStories";
 import ShowSchedule from "./pages/showSchedule";
 import UserDashboard from "./components/Dashboard/UserDashboard";
 import AddSchedule from "./pages/admin/addShedule";
-import GetInfo from "./pages/admin/GetInfo";
-
+import ShowInfo from "./pages/admin/ShowInfo";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -58,7 +57,7 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to="upload-materials" replace /> },
           { path: "upload-materials", element: <UploadMaterials /> },
           { path: "add-results", element: <AddResults /> },
-          { path: "get-info", element: <GetInfo /> },
+          { path: "get-info", element: <ShowInfo /> },
           { path: "add-schedule", element: <AddSchedule /> },
         ],
       },

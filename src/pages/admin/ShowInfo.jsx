@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
 import axios from '../../utils/axiosInstance';
 
-const GetInfo = () => {
+const ShowInfo = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -132,4 +132,4 @@ const GetInfo = () => {
   );
 };
 
-export default GetInfo;
+export default ShowInfo;

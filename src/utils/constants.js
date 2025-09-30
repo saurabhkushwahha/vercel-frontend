@@ -5,4 +5,3 @@ export const NAV_LINKS = [
   { path: "/materials", label: "Study Materials" },
 ];
 
-export const API_BASE_URL = "http://localhost:5000/api";

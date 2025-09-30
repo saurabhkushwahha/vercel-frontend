@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../utils/axiosInstance";
+import axios from "../../utils/api";
 import { FaUserGraduate, FaBook, FaChartLine, FaAward, FaPlusCircle, FaSpinner } from "react-icons/fa";
 
 export default function AddResults() {

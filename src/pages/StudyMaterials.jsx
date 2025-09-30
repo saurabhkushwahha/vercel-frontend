@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaDownload, FaFilter, FaTrash,FaGraduationCap, FaBook, FaSearch, FaClock } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from '../utils/axiosInstance';
+import axios from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 const StudyMaterials = () => {
   const [selectedClass, setSelectedClass] = useState('All Classes');

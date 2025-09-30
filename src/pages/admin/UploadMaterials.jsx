@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../utils/axiosInstance";
+import axios from "../../utils/api";
 import { FaBook, FaGraduationCap, FaFilePdf, FaClock } from "react-icons/fa";
 
 

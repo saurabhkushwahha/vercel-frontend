@@ -1,14 +1,14 @@
 import axios from "axios";
-import { API_BASE_URL } from "./constants";
+
+const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Example requests
 export const loginUser = (data) => api.post("/auth/login", data);
 export const registerUser = (data) => api.post("/auth/register", data);
 export const fetchMaterials = () => api.get("/materials");

@@ -57,7 +57,7 @@ export default function Signup() {
         <div className="w-full flex items-center justify-center p-12">
           <div className="text-white text-center">
             <img 
-              src=".\src\assets\signup.jpg" 
+              src="\assets\signup.jpg" 
               alt="Sign up illustration" 
               className="rounded-2xl shadow-2xl mb-8 mx-auto w-full max-w-md"
             />

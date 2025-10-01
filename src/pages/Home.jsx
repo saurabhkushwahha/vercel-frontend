@@ -8,19 +8,19 @@ const teamMembers = [
   {
     name: "MD Adil",
     role: "Founder & CEO |Viraam Vaani|",
-    image: "./src/assets/ceo.jpg",
+    image: "/assets/ceo.jpg",
     social: { linkedin: "#", twitter: "#", github: "#" },
   },
   {
     name: "Jaismin Ara",
     role: "Sponsor Team",
-    image: "./src/assets/mam.jpeg",
+    image: "/assets/mam.jpeg",
     social: { linkedin: "#", twitter: "#", github: "#" },
   },
   {
     name: "Amjad Ansari",
     role: "Developer",
-    image: "./src/assets/amja.jpg",
+    image: "/assets/amja.jpg",
     social: { linkedin: "#", twitter: "#", github: "#" },
   },
 ];

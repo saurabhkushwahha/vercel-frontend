@@ -16,7 +16,7 @@ const Hero = () => {
           poster="data:image/gif,AAAA"
         >
           <source 
-            src=".\src\assets\backvi.mp4" 
+            src="\assets\backvi.mp4" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.

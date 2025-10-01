@@ -118,7 +118,7 @@ export default function Contact() {
               className="overflow-hidden rounded-xl shadow-lg"
             >
               <img
-                src="./src/assets/contact.jpeg"
+                src="/assets/contact.jpeg"
                 alt="Helping Hands"
                 className="w-full h-80 object-cover"
               />

@@ -18,7 +18,7 @@ export default function FounderStory() {
           <div className="absolute w-80 h-80 bg-gradient-to-r from-[#043D3B] via-emerald-600 to-teal-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition duration-500"></div>
           <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-2xl border-4 border-white">
             <img
-              src="./src/assets/ceo.jpg"
+              src="/assets/ceo.jpg"
               alt="Founder"
               className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
             />

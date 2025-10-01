@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { User, Menu, X } from "lucide-react";
 import { useState } from "react";
-import Logo from "../assets/logo.jpeg";
+import Logo from "/assets/logo.jpeg";
 
 export default function Navbar({ onDashboardToggle }) {
   const { user } = useAuth();

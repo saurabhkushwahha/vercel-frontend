@@ -61,7 +61,7 @@ export default function Login() {
         <div className="w-full flex items-center justify-center p-12">
           <div className="text-white text-center">
             <img 
-              src=".\src\assets\login.jpg" 
+              src="\assets\login.jpg" 
               alt="Collaboration" 
               className="rounded-2xl shadow-2xl mb-8 mx-auto w-full max-w-md"
             />

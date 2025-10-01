@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="flex items-center gap-2 mb-4">
             <img
               className="w-7 h-4 rounded-full"
-              src="./src/assets/footerlogo.jpeg"
+              src="/assets/footerlogo.jpeg"
               alt="Logo"
             />
             <h2 className="text-lg font-bold">Viraam Vaani</h2>

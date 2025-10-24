@@ -36,7 +36,7 @@ export default function UploadMaterials() {
       data.append("className", formData.className);
       data.append("subject", formData.subject);
       data.append("materialName", formData.materialName);
-      data.append("file", formData.file);
+      data.append("pdfFile", formData.file);
       data.append("expiresAt", formData.alwaysAvailable ? "null" : formData.expiresAt);
 
       const res = await axios.post("/study/upload", data, {

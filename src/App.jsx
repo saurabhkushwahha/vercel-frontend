@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ScrollToTop from "./components/ScrollToTop";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import AdminSidebar from "./pages/admin/AdminSidebar";
@@ -14,11 +15,12 @@ function App() {
 
   return (
     <div className="relative">
-      <Navbar onDashboardToggle={()=>setSidebarOpen(!sidebarOpen)} />
+      <Navbar onDashboardToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-      {user && user.role === "admin" && <AdminSidebar isOpen={sidebarOpen} onClose={()=>setSidebarOpen(false)} onLogout={logout} />}
-      {user && user.role === "user" && <UserSidebar isOpen={sidebarOpen} onClose={()=>setSidebarOpen(false)} onLogout={logout} />}
+      {user && user.role === "admin" && <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onLogout={logout} />}
+      {user && user.role === "user" && <UserSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onLogout={logout} />}
 
+      <ScrollToTop />
       <div className="">
         <Outlet />
         <Footer />

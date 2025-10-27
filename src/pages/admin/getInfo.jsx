@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../utils/api";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 const GetInfo = () => {
   const [services, setServices] = useState([]);
@@ -12,7 +11,7 @@ const GetInfo = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/services`);
+        const res = await axios.get(`/api/services`);
         const fetchedServices = res.data.data || [];
         setServices(fetchedServices);
       } catch (err) {

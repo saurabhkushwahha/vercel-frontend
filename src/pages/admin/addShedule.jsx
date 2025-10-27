@@ -68,9 +68,8 @@ const AddSchedule = () => {
         {/* Message */}
         {message && (
           <p
-            className={`mb-4 text-sm text-center font-medium ${
-              message.includes("✅") ? "text-green-600" : "text-red-600"
-            }`}
+            className={`mb-4 text-sm text-center font-medium ${message.includes("✅") ? "text-green-600" : "text-red-600"
+              }`}
           >
             {message}
           </p>

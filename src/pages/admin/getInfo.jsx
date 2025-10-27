@@ -11,7 +11,7 @@ const GetInfo = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get(`/api/services`);
+        const res = await axios.get(`/services`);
         const fetchedServices = res.data.data || [];
         setServices(fetchedServices);
       } catch (err) {

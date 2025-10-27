@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
-// ✅ API Base URL (env me rakho, fallback localhost hoga)
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import axios from "../../utils/api";
 
 const AddSchedule = () => {
   const [formData, setFormData] = useState({
@@ -26,26 +24,17 @@ const AddSchedule = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/api/notifications`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const res = await axios.post(`/notifications`, formData);
+
+
+      setMessage("✅ Schedule added successfully!");
+      setFormData({
+        className: "",
+        subject: "",
+        testDate: "",
+        testTime: "",
+        description: "",
       });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage("✅ Schedule added successfully!");
-        setFormData({
-          className: "",
-          subject: "",
-          testDate: "",
-          testTime: "",
-          description: "",
-        });
-      } else {
-        setMessage(`❌ Error: ${data.message || "Something went wrong"}`);
-      }
     } catch (error) {
       console.error("Add schedule error:", error);
       setMessage("❌ Server error, please try again later.");

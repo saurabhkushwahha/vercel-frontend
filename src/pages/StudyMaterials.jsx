@@ -7,6 +7,9 @@ import Loading from "../components/Loading";
 
 const StudyMaterials = () => {
   const { user } = useAuth()
+  useEffect(() => {
+    console.log(user)
+  })
   const [materials, setMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
 

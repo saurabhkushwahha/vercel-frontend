@@ -21,6 +21,7 @@ import AddSchedule from "./pages/admin/addShedule";
 
 import ShowSchedule from './pages/showSchedule.jsx';
 import GetInfo from "./pages/admin/getInfo.jsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,23 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "about", element: <About /> },
       { path: "services", element: <Services /> },
-      { path: "study-materials", element: <StudyMaterials /> },
+      {
+        path: "study-materials", element: (
+          <ProtectedRoutes allowedRoles={["admin", "student"]}>
+            <StudyMaterials />
+          </ProtectedRoutes>
+        )
+      },
       { path: "contact", element: <Contact /> },
       { path: "story", element: <FounderStory /> },
       { path: "blog", element: <ResourcesBlog /> },
-      { path: "show-schedule", element: <ShowSchedule /> },
+      {
+        path: "show-schedule", element: (
+          <ProtectedRoutes allowedRoles={["admin", "student"]}>
+            <ShowSchedule />
+          </ProtectedRoutes>
+        )
+      },
 
       // Auth
       { path: "login", element: <Login /> },
@@ -43,7 +56,11 @@ const router = createBrowserRouter([
       // User Dashboard
       {
         path: "user",
-        element: <UserDashboard />,
+        element: (
+          <ProtectedRoutes allowedRoles={["student"]}>
+            <UserDashboard />
+          </ProtectedRoutes>
+        ),
         children: [
           { index: true, element: <Navigate to="results" replace /> },
           { path: "results", element: <Results /> },
@@ -54,7 +71,11 @@ const router = createBrowserRouter([
       // Admin Dashboard
       {
         path: "admin",
-        element: <AdminDashboard />,
+        element: (
+          <ProtectedRoutes allowedRoles={["admin"]}>
+            <AdminDashboard />
+          </ProtectedRoutes>
+        ),
         children: [
           { index: true, element: <Navigate to="upload-materials" replace /> },
           { path: "upload-materials", element: <UploadMaterials /> },

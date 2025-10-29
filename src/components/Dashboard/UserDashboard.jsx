@@ -8,31 +8,28 @@ export default function UserDashboard() {
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Agar login nahi hai to login page pe bhej do
-  if (!user || user.role !== "user") {
-    return <Navigate to="/login" replace />;
-  }
+
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-blue-500">
       {/* Sidebar - only visible when sidebarOpen is true */}
-      <UserSidebar 
-        isOpen={sidebarOpen} 
+      <UserSidebar
+        isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
-        onLogout={logout} 
+        onLogout={logout}
       />
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 ">
         {/* Button to toggle sidebar */}
-        <button 
+        <button
           onClick={() => setSidebarOpen(true)}
           className="mb-4 p-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors flex items-center gap-2"
         >
           <Menu size={20} />
           Open Menu
         </button>
-        
+
         <Outlet />
       </div>
     </div>

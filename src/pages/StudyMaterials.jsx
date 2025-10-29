@@ -46,7 +46,7 @@ const StudyMaterials = () => {
   };
 
   return (
-    <div className="min-h-screen mt-10 bg-gradient-to-br from-[#043D3B]/5 to-[#043D3B]/10 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen mt-10 bg-gradient-to-br from-[#043D3B]/5 to-[#043D3B]/10 py-14 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8">Study Materials</h1>
 

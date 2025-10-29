@@ -46,11 +46,11 @@ const coreValues = [
 
 const Home = () => {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden bg-white border-none shadow-xl">
       <Hero />
 
       {/* Notification Section */}
-      <section className="py-8 bg-gray-50 px-4 sm:px-6 lg:px-8 flex justify-center">
+      <section className="py-8   px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="flex flex-col justify-center items-center text-center max-w-md w-full">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
             📅 Get Your Test Schedule Update

@@ -44,10 +44,11 @@ const AddSchedule = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#043D3B] to-[#0A5C59] px-4 sm:px-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#043D3B] to-[#0A5C59] px-4 ">
+
       <div className="w-full max-w-md sm:max-w-lg bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-6 sm:p-8">
         {/* Header */}
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-[#043D3B] mb-2">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-[#043D3B] ">
           📅 Add Test Schedule
         </h2>
         <p className="text-center text-gray-600 mb-6 text-sm sm:text-base">

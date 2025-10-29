@@ -8,10 +8,7 @@ const AdminDashboard = () => {
   const { user, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar closed by default
 
-  // Agar login nahi hai ya role admin nahi hai to login page pe bhej do
-  if (!user || user.role !== "admin") {
-    return <Navigate to="/login" replace />;
-  }
+
 
   return (
     <div className="flex min-h-screen">
@@ -23,16 +20,16 @@ const AdminDashboard = () => {
       />
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1">
         {/* Button to toggle sidebar */}
-        <button 
+        <button
           onClick={() => setIsSidebarOpen(true)}
           className="mb-4 p-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors flex items-center gap-2"
         >
           <Menu size={20} />
           Open Admin Menu
         </button>
-        
+
         <Outlet />
       </div>
     </div>

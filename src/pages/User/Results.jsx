@@ -10,7 +10,7 @@ const Results = () => {
 
   useEffect(() => {
     const fetchResult = async () => {
-      const email = user?.email || localStorage.getItem("userEmail");
+      const email = user.email
       if (!email) {
         setError("Please login to view your results");
         setLoading(false);
@@ -97,7 +97,7 @@ const Results = () => {
           <p className="text-teal-100 text-sm md:text-lg">View your examination performance</p>
         </div>
 
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-xl overflow-hidden">
+        <div className=" rounded-xl md:rounded-2xl shadow-xl overflow-hidden">
           {/* Header with student info */}
           <div className="bg-gradient-to-r from-[#043D3B] to-[#0A5C59] p-4 md:p-6 text-white">
             <div className="flex flex-col md:flex-row justify-between items-center">
@@ -114,7 +114,7 @@ const Results = () => {
             </div>
           </div>
 
-          <div className="p-4 md:p-6 lg:p-8">
+          <div className="p-4 md:p-6 lg:p-8 bg-white">
             {/* Student Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
               <div className="bg-gray-50 p-3 md:p-4 rounded-lg">
@@ -167,7 +167,7 @@ const Results = () => {
               </h3>
 
               {/* Mobile View - Cards */}
-              <div className="block md:hidden space-y-3">
+              <div className="block md:hidden space-y-5">
                 {result.subjects.map((sub, idx) => (
                   <div key={idx} className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
                     <div className="flex justify-between items-start mb-2">
@@ -177,7 +177,7 @@ const Results = () => {
                         {sub.total >= 40 ? "Pass" : "Fail"}
                       </span>
                     </div>
-                    <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className="flex justify-between text-xs">
                       <div className="text-center">
                         <p className="text-gray-500">Objective</p>
                         <p className="font-medium">{sub.objective}</p>

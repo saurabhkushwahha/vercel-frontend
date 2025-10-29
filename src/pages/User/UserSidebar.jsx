@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { IconFileCertificate, IconLogout } from "@tabler/icons-react";
 import { X } from "lucide-react";
 
 export default function UserSidebar({ isOpen, onClose, onLogout }) {
   const location = useLocation();
+
 
   const menuItems = [
     { path: "/user/results", label: "Results", icon: <IconFileCertificate size={18} /> },
@@ -51,11 +52,10 @@ export default function UserSidebar({ isOpen, onClose, onLogout }) {
                 <Link
                   to={item.path}
                   onClick={onClose}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 ${
-                    location.pathname === item.path
-                      ? "bg-white/25 text-white shadow-inner"
-                      : "text-teal-100 hover:bg-white/10 hover:text-white"
-                  }`}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 ${location.pathname === item.path
+                    ? "bg-white/25 text-white shadow-inner"
+                    : "text-teal-100 hover:bg-white/10 hover:text-white"
+                    }`}
                 >
                   <span>{item.icon}</span>
                   <span className="flex-1 font-medium">{item.label}</span>

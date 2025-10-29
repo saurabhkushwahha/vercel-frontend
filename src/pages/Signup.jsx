@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "../utils/api";
 import { Eye, EyeOff, User, Mail, Lock, ArrowRight } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const { signup } = useAuth()
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,18 +32,7 @@ export default function Signup() {
     try {
       setIsLoading(true);
 
-      // ✅ Fixed URL (plural students)
-      const res = await axios.post(
-        "/students/signup",
-        {
-          name,
-          email,
-          password,
-        }
-      );
-
-      console.log("Signup success:", res.data);
-
+      await signup(email, name, password);
       setIsLoading(false);
       navigate("/login");
     } catch (err) {

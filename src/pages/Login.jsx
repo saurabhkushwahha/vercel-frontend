@@ -6,9 +6,9 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("student");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -21,12 +21,10 @@ export default function Login() {
     setLoading(true);
     setError("");
 
-    const identifier = role === "user" ? email : username;
-    const res = await login(identifier, password, role);
-
+    const res = await login(email, password, role);
     if (res.success) {
-      toast.success(`${role === "admin" ? "Admin" : "User"} logged in successfully ✅`, { position: "top-right" });
-      navigate("/", { replace: true });
+      toast.success(`${role === "admin" ? "Admin" : "Student"} logged in successfully ✅`, { position: "top-right" });
+      navigate("/")
     } else {
       setError(res.message);
     }
@@ -87,18 +85,18 @@ export default function Login() {
 
             {/* Role Selector */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">Login as</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">Sign as</label>
               <div className="flex rounded-xl bg-gray-100 p-1.5 gap-1">
                 <button
                   type="button"
-                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${role === "user"
+                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${role === "student"
                     ? "bg-white text-[#0A5C59] shadow-lg shadow-teal-100 border border-teal-200"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                     }`}
-                  onClick={() => setRole("user")}
+                  onClick={() => setRole("student")}
                 >
                   <Users className="h-4 w-4" />
-                  User
+                  Student
                 </button>
                 <button
                   type="button"
@@ -113,43 +111,22 @@ export default function Login() {
                 </button>
               </div>
             </div>
-
-            {/* Conditional input fields */}
-            {role === "user" ? (
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Email address</label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-gray-400 group-focus-within:text-[#0A5C59] transition-colors" />
-                  </div>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full border border-gray-300 rounded-xl px-10 py-3.5 focus:outline-none focus:ring-3 focus:ring-[#0A5C59]/20 focus:border-[#0A5C59] transition-all duration-300 hover:border-gray-400"
-                    placeholder="Enter your email address"
-                  />
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Email address</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400 group-focus-within:text-[#0A5C59] transition-colors" />
                 </div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border border-gray-300 rounded-xl px-10 py-3.5 focus:outline-none focus:ring-3 focus:ring-[#0A5C59]/20 focus:border-[#0A5C59] transition-all duration-300 hover:border-gray-400"
+                  placeholder="Enter your email address"
+                />
               </div>
-            ) : (
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Username</label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400 group-focus-within:text-[#0A5C59] transition-colors" />
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="w-full border border-gray-300 rounded-xl px-10 py-3.5 focus:outline-none focus:ring-3 focus:ring-[#0A5C59]/20 focus:border-[#0A5C59] transition-all duration-300 hover:border-gray-400"
-                    placeholder="Enter your username"
-                  />
-                </div>
-              </div>
-            )}
+            </div>
 
             {/* Password */}
             <div>

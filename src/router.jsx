@@ -22,6 +22,7 @@ import AddSchedule from "./pages/admin/addShedule";
 import ShowSchedule from './pages/showSchedule.jsx';
 import GetInfo from "./pages/admin/getInfo.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
+import PublicRoutes from "./components/PublicRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -50,8 +51,20 @@ const router = createBrowserRouter([
       },
 
       // Auth
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
+      {
+        path: "login", element: (
+          <PublicRoutes>
+            <Login />
+          </PublicRoutes>
+        )
+      },
+      {
+        path: "signup", element: (
+          <PublicRoutes>
+            <Signup />
+          </PublicRoutes>
+        )
+      },
 
       // User Dashboard
       {

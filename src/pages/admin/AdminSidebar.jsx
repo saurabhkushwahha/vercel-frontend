@@ -28,7 +28,7 @@ const AdminSidebar = ({ isOpen, onClose, onLogout }) => {
   const handleLogout = () => {
     onLogout();      // clear user/auth state
     onClose();       // close sidebar
-    navigate("/");   // redirect to Home
+    navigate("/login");   // redirect to Home
   };
 
   return (
@@ -36,7 +36,7 @@ const AdminSidebar = ({ isOpen, onClose, onLogout }) => {
       {/* Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             className="fixed inset-0 bg-black/40 z-40 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -85,11 +85,10 @@ const AdminSidebar = ({ isOpen, onClose, onLogout }) => {
                     <Link
                       to={item.path}
                       onClick={onClose}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 relative overflow-hidden ${
-                        location.pathname === item.path 
-                          ? "bg-white/25 text-white shadow-inner" 
-                          : "text-teal-100 hover:bg-white/10 hover:text-white"
-                      }`}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 relative overflow-hidden ${location.pathname === item.path
+                        ? "bg-white/25 text-white shadow-inner"
+                        : "text-teal-100 hover:bg-white/10 hover:text-white"
+                        }`}
                     >
                       <span className="relative z-10">{item.icon}</span>
                       <span className="relative z-10 flex-1 font-medium">{item.label}</span>

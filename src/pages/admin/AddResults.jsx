@@ -98,12 +98,12 @@ export default function AddResults() {
           <p className="text-teal-100 text-lg">Add and manage student examination results</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className=" rounded-2xl shadow-2xl overflow-hidden">
           <div className="bg-gradient-to-r from-[#043D3B] to-[#0A5C59] p-6">
             <h2 className="text-3xl font-bold text-white text-center">Add Student Result</h2>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8">
+          <form onSubmit={handleSubmit} className="px-8 py-12 bg-white">
             {/* Student Information */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b-2 border-teal-100">

@@ -55,6 +55,7 @@ export default function UploadMaterials() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#043D3B] to-[#0A5C59] py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-6">
+
       <div className="max-w-2xl lg:max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8 lg:mb-10">

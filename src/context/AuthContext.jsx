@@ -9,63 +9,66 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
-    setLoading(false);
-  }, []);
+    checkAuth()
+  }, [])
 
-  const login = async (identifier, password, role) => {
+  const checkAuth = async () => {
     try {
-      if (role === "admin") {
-        if (identifier === "admin123" && password === "admin@123") {
-          const loggedInAdmin = {
-            name: "Admin",
-            username: "admin123",
-            role: "admin",
-            token: "dummy-admin-token",
-          };
-          setUser(loggedInAdmin);
-          localStorage.setItem("user", JSON.stringify(loggedInAdmin));
-          return { success: true, user: loggedInAdmin };
-        } else {
-          return { success: false, message: "Invalid admin credentials" };
-        }
-      }
-
-      // ✅ FIXED student login URL
-      const res = await axios.post("/students/login", {
-        email: identifier,
-        password,
-      });
-
-      if (!res.data || !res.data.token) {
-        return { success: false, message: res.data?.msg || "Login failed" };
-      }
-
-      const loggedInUser = {
-        _id: res.data.user?._id,
-        name: res.data.user?.name,
-        email: res.data.user?.email,
-        role: "user",
-        token: res.data.token,
-      };
-
-      setUser(loggedInUser);
-      localStorage.setItem("user", JSON.stringify(loggedInUser));
-      return { success: true, user: loggedInUser };
+      const res = await axios.get('/auth/checkAuth');
+      setUser(res.data.user)
     } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
+      console.error("Session error:", error.response?.data || error.message);
       return { success: false, message: error.response?.data?.msg || "Something went wrong" };
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const login = async (email, password, role) => {
+    try {
+      const res = await axios.post("/auth/login", {
+        email,
+        password,
+        role,
+      });
+      if (!res.data) {
+        return { success: false, message: "Login failed" };
+      }
+      setUser(res.data.user);
+      return { success: true, user: res.data?.user };
+    } catch (error) {
+      console.error("Login error:", error.message);
+      return { success: false, message: "Something went wrong" };
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
+  const signup = async (email, name, password) => {
+    try {
+
+      const res = await axios.post("/auth/signup", {
+        name,
+        email,
+        password,
+      })
+
+    } catch (error) {
+      console.error("Signup error:", error.message);
+      return { success: false, message: "Something went wrong" };
+    }
+  }
+
+
+  const logout = async () => {
+    try {
+      await axios.get('/auth/logout')
+      setUser(null)
+    } catch (error) {
+      return { success: false, message: "something went wrong" }
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

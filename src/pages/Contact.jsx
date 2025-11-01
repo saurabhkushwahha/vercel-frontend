@@ -84,8 +84,8 @@ export default function Contact() {
         >
           {[
             { icon: <FaMapMarkerAlt className="text-xl" />, title: "Address", content: "Chausa Bazar Chausa", color: "bg-red-500" },
-            { icon: <FaEnvelope className="text-xl" />, title: "You Can Email Here", content: "VirramVaani@forhelp.com", color: "bg-blue-500" },
-            { icon: <FaPhoneAlt className="text-xl" />, title: "Call us on", content: "+91-9304024338", color: "bg-green-500" },
+            { icon: <FaEnvelope className="text-xl" />, title: "You Can Email Here", content: "viraamvaani1@gmail.com", color: "bg-blue-500" },
+            { icon: <FaPhoneAlt className="text-xl" />, title: "Call us on", content: "9304024338", color: "bg-green-500" },
             { icon: <FaClock className="text-xl" />, title: "Working Hours", content: "10:00 am – 6:00 pm", color: "bg-purple-500" }
           ].map((item, index) => (
             <motion.div

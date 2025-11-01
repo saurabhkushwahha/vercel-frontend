@@ -24,11 +24,11 @@ export default function Footer() {
 
           {/* Tagline */}
           <p className="text-sm leading-relaxed mb-6">
-            “Viraam Vaani is a center of learning and growth, dedicated to
+            Viraam Vaani is a Center of learning and growth, dedicated to
             nurturing minds with knowledge, values, and innovation. Our mission
             is to inspire students with the power of education, encourage
             critical thinking, and empower them to build a brighter future for
-            themselves and society.”
+            themselves and Society.
           </p>
 
           {/* Social Icons */}

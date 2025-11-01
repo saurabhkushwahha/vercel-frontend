@@ -221,7 +221,7 @@ const Home = () => {
                 <h3 className="text-lg font-bold text-gray-900">
                   {member.name}
                 </h3>
-                <p className="text-[#043D3B] mb-3 text-sm sm:text-base">
+                <p className="text-[#043D3B] mb-3 font-bold text-sm sm:text-base">
                   {member.role}
                 </p>
                 <div className="flex justify-center space-x-4">

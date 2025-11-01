@@ -39,7 +39,7 @@ const About = () => {
 
   const stats = [
     { icon: <FaAward className="text-2xl text-red-500" />, number: "150+", label: "Projects Completed" },
-    { icon: <FaUser className="text-2xl text-orange-400" />, number: "100+", label: "Happy Students" },
+    { icon: <FaUser className="text-2xl text-orange-400" />, number: "500+", label: "Happy Students" },
     { icon: <FaProjectDiagram className="text-2xl text-blue-500" />, number: "5+", label: "Years Experience" },
     { icon: <FaHeart className="text-2xl text-red-600" />, number: "99%", label: "Students Satisfaction" },
   ];

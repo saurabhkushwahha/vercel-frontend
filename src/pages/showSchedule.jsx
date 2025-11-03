@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "../utils/api";
-import { Calendar, Clock, BookOpen, AlertCircle, Loader } from "lucide-react";
-
+import { Calendar, Clock, BookOpen, LucideTrash, Loader } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import Modal from "../components/Modal";
 const ShowSchedule = () => {
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedNotificationId, setSelectedNotificationId] = useState(null);
+  const { user } = useAuth();
 
   // Fetch schedules from backend
   useEffect(() => {
@@ -22,6 +26,23 @@ const ShowSchedule = () => {
     fetchSchedules();
   }, []);
 
+  const handleDeleteClick = (notificationId) => {
+    setSelectedNotificationId(notificationId);
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const deleteNotification = async (notificationId) => {
+    setLoading(true);
+    try {
+      await axios.delete(`/notifications/${notificationId}`);
+      setSchedules(schedules.filter(schedule => schedule._id !== notificationId));
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error Delete Notification!");
+    } finally {
+      setLoading(false);
+    }
+  };
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -47,104 +68,117 @@ const ShowSchedule = () => {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
-            📚 Test Schedules
-          </h1>
-          <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-            Stay updated with all upcoming tests and examinations. Plan your studies and prepare in advance.
-          </p>
-        </div>
-
-        {/* No schedules */}
-        {schedules.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-3xl shadow-lg border border-gray-100">
-            <Calendar className="h-20 w-20 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-2xl font-semibold text-gray-600 mb-2">No Schedules Found</h3>
-            <p className="text-gray-500">Check back later for upcoming test schedules.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {schedules.map((schedule) => (
-              <div
-                key={schedule._id}
-                className="bg-white rounded-3xl shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 p-6 flex flex-col justify-between border border-gray-100"
-              >
-                {/* Class Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800 bg-gradient-to-r from-blue-100 to-blue-200 px-3 py-1 rounded-full shadow-sm">
-                    {schedule.className}
-                  </h3>
-                  <BookOpen className="h-6 w-6 text-blue-600" />
-                </div>
-
-                {/* Subject */}
-                <div className="mb-4">
-                  <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-                    Subject
-                  </span>
-                  <p className="text-lg sm:text-xl font-semibold text-gray-800 mt-1">{schedule.subject}</p>
-                </div>
-
-                {/* Date & Time */}
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <div className="flex items-center text-gray-600 mb-1">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      <span className="text-sm font-medium">Date</span>
-                    </div>
-                    <p className="text-gray-800 font-medium">
-                      {new Date(schedule.testDate).toLocaleDateString("en-US", {
-                        weekday: "short",
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center text-gray-600 mb-1">
-                      <Clock className="h-4 w-4 mr-2" />
-                      <span className="text-sm font-medium">Time</span>
-                    </div>
-                    <p className="text-gray-800 font-medium">{schedule.testTime}</p>
-                  </div>
-                </div>
-
-                {/* Description */}
-                {schedule.description && (
-                  <div className="pt-4 border-t border-gray-100">
-                    <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-                      Description
-                    </span>
-                    <p className="text-gray-700 mt-2 leading-relaxed">{schedule.description}</p>
-                  </div>
-                )}
-
-                {/* Status Badge */}
-                <div className="mt-4 pt-4 border-t border-gray-100 flex justify-end">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 shadow-sm">
-                    Upcoming Test
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Footer */}
-        {schedules.length > 0 && (
-          <div className="mt-12 text-center">
-            <p className="text-gray-500 text-sm sm:text-base">
-              Showing {schedules.length} scheduled test{schedules.length !== 1 ? "s" : ""}
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
+              📚 Test Schedules
+            </h1>
+            <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+              Stay updated with all upcoming tests and examinations. Plan your studies and prepare in advance.
             </p>
           </div>
-        )}
+
+          {/* No schedules */}
+          {schedules.length === 0 ? (
+            <div className="text-center py-16 bg-white rounded-3xl shadow-lg border border-gray-100">
+              <Calendar className="h-20 w-20 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-2xl font-semibold text-gray-600 mb-2">No Schedules Found</h3>
+              <p className="text-gray-500">Check back later for upcoming test schedules.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {schedules.map((schedule) => (
+                <div
+                  key={schedule._id}
+                  className="bg-white rounded-3xl shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 p-6 flex flex-col justify-between border border-gray-100"
+                >
+                  {/* Class Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800 bg-gradient-to-r from-blue-100 to-blue-200 px-3 py-1 rounded-full shadow-sm">
+                      {schedule.className}
+                    </h3>
+                    {user.role === "student" ? <BookOpen className="h-6 w-6 text-blue-600" /> : <LucideTrash onClick={() => handleDeleteClick(schedule._id)} className="h-6 w-5 text-red-600 cursor-pointer hover:text-red-400" />}
+                  </div>
+
+                  {/* Subject */}
+                  <div className="mb-4">
+                    <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+                      Subject
+                    </span>
+                    <p className="text-lg sm:text-xl font-semibold text-gray-800 mt-1">{schedule.subject}</p>
+                  </div>
+
+                  {/* Date & Time */}
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <div className="flex items-center text-gray-600 mb-1">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        <span className="text-sm font-medium">Date</span>
+                      </div>
+                      <p className="text-gray-800 font-medium">
+                        {new Date(schedule.testDate).toLocaleDateString("en-US", {
+                          weekday: "short",
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <div>
+                      <div className="flex items-center text-gray-600 mb-1">
+                        <Clock className="h-4 w-4 mr-2" />
+                        <span className="text-sm font-medium">Time</span>
+                      </div>
+                      <p className="text-gray-800 font-medium">{schedule.testTime}</p>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  {schedule.description && (
+                    <div className="pt-4 border-t border-gray-100">
+                      <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+                        Description
+                      </span>
+                      <p className="text-gray-700 mt-2 leading-relaxed">{schedule.description}</p>
+                    </div>
+                  )}
+
+                  {/* Status Badge */}
+                  <div className="mt-4 pt-4 border-t border-gray-100 flex justify-end">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 shadow-sm">
+                      Upcoming Test
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Footer */}
+          {schedules.length > 0 && (
+            <div className="mt-12 text-center">
+              <p className="text-gray-500 text-sm sm:text-base">
+                Showing {schedules.length} scheduled test{schedules.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      {
+        isModalOpen && (
+          <Modal
+            setIsModalOpen={setIsModalOpen}
+            isModalOpen={isModalOpen}
+            selectedNotificationId={selectedNotificationId}
+            deleteNotification={deleteNotification}
+          />
+        )
+      }
+    </>
   );
 };
 

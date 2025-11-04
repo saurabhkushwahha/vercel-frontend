@@ -6,7 +6,7 @@ const Loading = ({ message = "Loading...", size = 12 }) => {
     return (
         <div className="flex flex-col items-center justify-center py-8">
             <Loader className={`animate-spin text-[#043D3B] ${sizeClass}`} />
-            {message && <p className="mt-3 text-gray-600">{message}</p>}
+            {/* {message && <p className="mt-3 text-gray-600">{message}</p>} */}
         </div>
     );
 };

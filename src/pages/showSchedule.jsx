@@ -3,6 +3,7 @@ import axios from "../utils/api";
 import { Calendar, Clock, BookOpen, LucideTrash, Loader } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Modal from "../components/Modal";
+import Loading from "../components/Loading";
 const ShowSchedule = () => {
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,10 +46,7 @@ const ShowSchedule = () => {
   };
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
-        <Loader className="h-12 w-12 animate-spin text-blue-600 mx-auto mb-4" />
-        <p className="text-lg text-gray-700">Loading schedules...</p>
-      </div>
+      <Loading />
     );
 
   if (error)

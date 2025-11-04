@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/api";
 import { useAuth } from "../../context/AuthContext";
+import Loading from "../../components/Loading";
 
 const Results = () => {
   const { user } = useAuth();
@@ -43,14 +44,7 @@ const Results = () => {
   }, [user]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-[#043D3B] to-[#0A5C59] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 text-center w-full max-w-sm">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 text-base md:text-lg">Loading your results...</p>
-        </div>
-      </div>
-    );
+    return <Loading />
   }
 
   if (error) {

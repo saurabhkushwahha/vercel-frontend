@@ -84,8 +84,8 @@ export default function Contact() {
         >
           {[
             { icon: <FaMapMarkerAlt className="text-xl" />, title: "Address", content: "Chausa Bazar Chausa", color: "bg-red-500" },
-            { icon: <FaEnvelope className="text-xl" />, title: "You Can Email Here", content: "VirramVaani@forhelp.com", color: "bg-blue-500" },
-            { icon: <FaPhoneAlt className="text-xl" />, title: "Call us on", content: "+91-9304024338", color: "bg-green-500" },
+            { icon: <FaEnvelope className="text-xl" />, title: "You Can Email Here", content: "viraamvaani1@gmail.com", color: "bg-blue-500" },
+            { icon: <FaPhoneAlt className="text-xl" />, title: "Call us on", content: "9304024338", color: "bg-green-500" },
             { icon: <FaClock className="text-xl" />, title: "Working Hours", content: "10:00 am – 6:00 pm", color: "bg-purple-500" }
           ].map((item, index) => (
             <motion.div
@@ -210,29 +210,44 @@ export default function Contact() {
         </motion.div>
 
         {/* Map Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-xl shadow-lg p-6 mt-8"
-        >
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Find Us Here</h2>
-          <a
-            href="https://maps.app.goo.gl/8iafLwxPE4cXb7Ub8"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div className="h-64 bg-gradient-to-br from-[#208884]/20 to-teal-700/20 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <FaMapMarkerAlt className="text-4xl text-[#208884] mx-auto mb-2" />
-                <p className="text-gray-700">Chausa Bazar Chausa</p>
-                <p className="text-sm text-gray-500 mt-1">View on Google Maps</p>
-              </div>
-            </div>
-          </a>
+     <motion.div
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.7, delay: 0.2 }}
+  viewport={{ once: true }}
+  className="bg-white rounded-xl shadow-lg p-6 mt-8"
+>
+  <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+    Find Us Here
+  </h2>
 
-        </motion.div>
+  {/* Embedded Real Google Map */}
+  <div className="relative w-full h-64 sm:h-80 rounded-lg overflow-hidden shadow-md">
+    <iframe
+      title="Viraam Vaani Location"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14317.34349758629!2d83.58535635796326!3d25.547733595508836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3992b24a32a5cf7f%3A0x1b729f2c5407a3c!2sChausa%20Bazar%2C%20Chausa%2C%20Buxar%2C%20Bihar%20802113!5e0!3m2!1sen!2sin!4v1730256343227!5m2!1sen!2sin"
+      width="100%"
+      height="100%"
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      className="border-0 w-full h-full"
+    ></iframe>
+  </div>
+
+  <div className="text-center mt-3">
+    <p className="text-gray-700 font-medium">Chausa Bazar, Chausa, Bihar</p>
+    <a
+      href="https://maps.app.goo.gl/8iafLwxPE4cXb7Ub8"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#208884] text-sm font-semibold hover:underline"
+    >
+      View on Google Maps
+    </a>
+  </div>
+</motion.div>
+
       </div>
     </div>
   );

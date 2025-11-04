@@ -6,8 +6,18 @@ import Amjad from "/assets/amja.jpg";
 import found from "/assets/ceo.jpg";
 import Spons from "/assets/mam.jpeg";
 
-
-import { FaLinkedin, FaTwitter, FaGithub, FaBell, FaHeart, FaLightbulb, FaRocket, FaHandshake, FaUsers, FaBrain } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaTwitter,
+  FaGithub,
+  FaBell,
+  FaHeart,
+  FaLightbulb,
+  FaRocket,
+  FaHandshake,
+  FaUsers,
+  FaBrain,
+} from "react-icons/fa";
 
 const teamMembers = [
   {
@@ -34,14 +44,38 @@ const teamMembers = [
   },
 ];
 
-// Core Values data (reuse from About.jsx)
+// Core Values data
 const coreValues = [
-  { icon: <FaHeart className="text-2xl text-green-700" />, title: "Passion", desc: "We love what we do and it shows in every project we deliver." },
-  { icon: <FaLightbulb className="text-2xl text-red-600" />, title: "Innovation", desc: "We constantly explore new ideas and technologies to stay ahead." },
-  { icon: <FaRocket className="text-2xl text-orange-500" />, title: "Excellence", desc: "We strive for perfection in every detail of our work." },
-  { icon: <FaHandshake className="text-2xl text-blue-500" />, title: "Collaboration", desc: "We believe in working together to achieve extraordinary results." },
-  { icon: <FaUsers className="text-2xl text-purple-500" />, title: "Community", desc: "We're committed to nurturing and growing our community." },
-  { icon: <FaBrain className="text-2xl text-teal-500" />, title: "Creativity", desc: "We approach every challenge with fresh thinking and imagination." }
+  {
+    icon: <FaHeart className="text-3xl text-green-700" />,
+    title: "Passion",
+    desc: "We teach with fire, commitment, and love for growth — inspiring every student to find purpose in learning.",
+  },
+  {
+    icon: <FaLightbulb className="text-3xl text-red-600" />,
+    title: "Innovation",
+    desc: "We challenge old methods and create new ways to learn, lead, and live with clarity and confidence.",
+  },
+  {
+    icon: <FaRocket className="text-3xl text-orange-500" />,
+    title: "Excellence",
+    desc: "We strive for perfection in every detail — from teaching to testing, and from thoughts to transformation.",
+  },
+  {
+    icon: <FaHandshake className="text-3xl text-blue-500" />,
+    title: "Collaboration",
+    desc: "We believe success is not individual — it’s collective. Together, we grow stronger, wiser, and unstoppable.",
+  },
+  {
+    icon: <FaUsers className="text-3xl text-purple-500" />,
+    title: "Community",
+    desc: "Viraam Vaani is a family — a safe space where minds learn, hearts connect, and dreams take shape.",
+  },
+  {
+    icon: <FaBrain className="text-3xl text-teal-500" />,
+    title: "Creativity",
+    desc: "We encourage imagination — because true intelligence blooms when ideas flow freely and fearlessly.",
+  },
 ];
 
 const Home = () => {
@@ -50,7 +84,7 @@ const Home = () => {
       <Hero />
 
       {/* Notification Section */}
-      <section className="py-8   px-4 sm:px-6 lg:px-8 flex justify-center">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="flex flex-col justify-center items-center text-center max-w-md w-full">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
             📅 Get Your Test Schedule Update
@@ -75,34 +109,41 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+      {/* Features / Core Values Section */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="text-center mb-14">
           <span className="text-[#043D3B] font-semibold text-base sm:text-lg mb-1 block">
             Our Advantages
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             Why Choose Us?
           </h2>
-          <div className="w-16 h-1 bg-[#043D3B] mx-auto mb-4"></div>
+          <div className="w-20 h-1 bg-[#043D3B] mx-auto mb-5"></div>
           <p className="text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
             We provide the perfect environment for academic excellence with our
             proven teaching methodology.
           </p>
         </div>
 
-        {/* Core Values Section inside Home */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Core Values Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 max-w-6xl mx-auto">
           {coreValues.map((value, index) => (
             <div
               key={index}
-              className="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center hover:bg-white/15 transition-all duration-300 border border-white/10 shadow-lg hover:shadow-2xl"
+              className="group relative bg-white border border-gray-100 rounded-2xl shadow-md hover:shadow-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-[#043D3B] text-2xl">
-                {value.icon}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="w-20 h-20 mx-auto mb-5 bg-white flex items-center justify-center rounded-full shadow-lg border border-gray-100">
+                  {value.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                  {value.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-              <p className="text-gray-700">{value.desc}</p>
             </div>
           ))}
         </div>
@@ -177,8 +218,12 @@ const Home = () => {
                 />
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-bold text-gray-900">{member.name}</h3>
-                <p className="text-[#043D3B] mb-3 text-sm sm:text-base">{member.role}</p>
+                <h3 className="text-lg font-bold text-gray-900">
+                  {member.name}
+                </h3>
+                <p className="text-[#043D3B] mb-3 font-bold text-sm sm:text-base">
+                  {member.role}
+                </p>
                 <div className="flex justify-center space-x-4">
                   {member.social.linkedin !== "#" && (
                     <a

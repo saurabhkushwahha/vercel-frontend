@@ -6,7 +6,13 @@ const Results = () => {
   const { user } = useAuth();
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
+
+
+  const handlePrint = () => {
+    window.print();
+  };
   const [error, setError] = useState("");
+
 
   useEffect(() => {
     const fetchResult = async () => {
@@ -86,11 +92,13 @@ const Results = () => {
   }
 
   const percentage = result.percentage;
-  const isPass = percentage >= 40;
+  const isPass = percentage >= 50;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#043D3B] to-[#0A5C59] py-4 md:py-8 px-3 sm:px-4">
       <div className="max-w-4xl mx-auto">
+        {/* Print-specific styles: hide elements with .no-print when printing */}
+        <style>{`@media print { .no-print { display: none !important; } }`}</style>
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Academic Results</h1>
@@ -105,11 +113,27 @@ const Results = () => {
                 <h2 className="text-xl md:text-2xl font-bold mb-1 md:mb-2">Result Summary</h2>
                 <p className="text-teal-100 text-sm md:text-base">{result.studentName || "Student"}</p>
               </div>
-              <div className={`px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-base md:text-lg ${isPass
-                ? "bg-green-500 text-white"
-                : "bg-red-500 text-white"
-                }`}>
-                {isPass ? "PASS" : "FAIL"}
+
+              <div className="flex items-center">
+
+
+                <div className={`px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-base md:text-lg ${isPass
+                  ? "bg-green-500 text-white"
+                  : "bg-red-500 text-white"
+                  }`}>
+                  {isPass ? "PASS" : "FAIL"}
+                </div>
+                <div className="px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-base md:text-lg">
+                  {/* Print button (hidden when printing via .no-print) */}
+                  <button
+                    onClick={handlePrint}
+                    aria-label="Print results"
+                    title="Print results"
+                    className={`no-print px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-base md:text-lg bg-white text-[#043D3B] hover:bg-gray-100 transition-colors`}
+                  >
+                    Print
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -148,14 +172,13 @@ const Results = () => {
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3 md:h-4">
                 <div
-                  className={`h-3 md:h-4 rounded-full transition-all duration-1000 ease-out ${isPass ? "bg-green-500" : "bg-red-500"
-                    }`}
+                  className={`h-3 md:h-4 rounded-full transition-all duration-1000 ease-out ${isPass ? "bg-green-500" : "bg-red-500"}`}
                   style={{ width: `${Math.min(percentage, 100)}%` }}
                 ></div>
               </div>
               <div className="flex justify-between text-xs text-gray-500 mt-1">
                 <span className="text-xs">0%</span>
-                <span className="text-xs">40%</span>
+                <span className="text-xs">50%</span>
                 <span className="text-xs">100%</span>
               </div>
             </div>
@@ -172,9 +195,9 @@ const Results = () => {
                   <div key={idx} className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-gray-800 text-sm">{sub.name}</h4>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${sub.total >= 40 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${sub.totalSubjectMarks >= 50 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
                         }`}>
-                        {sub.total >= 40 ? "Pass" : "Fail"}
+                        {sub.totalSubjectMarks >= 40 ? "Pass" : "Fail"}
                       </span>
                     </div>
                     <div className="flex justify-between text-xs">
@@ -188,11 +211,38 @@ const Results = () => {
                       </div>
                       <div className="text-center">
                         <p className="text-gray-500">Total</p>
-                        <p className="font-bold text-teal-600">{sub.total}</p>
+                        <p className="font-bold text-teal-600">{sub.totalSubjectMarks}</p>
                       </div>
                     </div>
                   </div>
                 ))}
+                {/* Final Total Card for Mobile */}
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 shadow-sm font-bold">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="font-semibold text-gray-800 text-sm">Final Total</h4>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${isPass ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
+                      {isPass ? "Pass" : "Fail"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <div className="text-center">
+                      <p className="text-gray-500">Objective</p>
+                      <p className="font-medium">{result.subjects.reduce((total, sub) => total + Number(sub.objective), 0)}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-500">Subjective</p>
+                      <p className="font-medium">{result.subjects.reduce((total, sub) => total + Number(sub.subjective), 0)}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-500">Obtained</p>
+                      <p className="font-bold text-teal-600">{result.subjects.reduce((total, sub) => total + Number(sub.obtainedSubjectMarks), 0)}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-gray-500">Total</p>
+                      <p className="font-bold text-teal-600">{result.subjects.reduce((total, sub) => total + Number(sub.totalSubjectMarks), 0)}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Desktop View - Table */}
@@ -204,6 +254,7 @@ const Results = () => {
                         <th className="p-3 md:p-4 text-left font-semibold text-sm md:text-base">Subject</th>
                         <th className="p-3 md:p-4 text-center font-semibold text-sm md:text-base">Objective</th>
                         <th className="p-3 md:p-4 text-center font-semibold text-sm md:text-base">Subjective</th>
+                        <th className="p-3 md:p-4 text-center font-semibold text-sm md:text-base">Scores</th>
                         <th className="p-3 md:p-4 text-center font-semibold text-sm md:text-base">Total</th>
                         <th className="p-3 md:p-4 text-center font-semibold text-sm md:text-base">Status</th>
                       </tr>
@@ -214,15 +265,33 @@ const Results = () => {
                           <td className="p-3 md:p-4 font-medium text-gray-800 text-sm md:text-base">{sub.name}</td>
                           <td className="p-3 md:p-4 text-center text-gray-600 text-sm md:text-base">{sub.objective}</td>
                           <td className="p-3 md:p-4 text-center text-gray-600 text-sm md:text-base">{sub.subjective}</td>
-                          <td className="p-3 md:p-4 text-center font-bold text-teal-600 text-sm md:text-base">{sub.total}</td>
+                          <td className="p-3 md:p-4 text-center font-bold text-teal-600 text-sm md:text-base">{sub.obtainedSubjectMarks}</td>
+                          <td className="p-3 md:p-4 text-center font-bold text-teal-600 text-sm md:text-base">{sub.totalSubjectMarks}</td>
                           <td className="p-3 md:p-4 text-center">
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${sub.total >= 40 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${sub.totalSubjectMarks >= 50 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
                               }`}>
-                              {sub.total >= 40 ? "Pass" : "Fail"}
+                              {sub.totalSubjectMarks >= 50 ? "Pass" : "Fail"}
                             </span>
                           </td>
                         </tr>
                       ))}
+                      {/* Final Total Row */}
+                      <tr className="bg-gray-50 font-bold">
+                        <td className="p-3 md:p-4 text-gray-800 text-sm md:text-base">Final Total</td>
+                        <td className="p-3 md:p-4 text-center text-gray-800 text-sm md:text-base">
+                          {result.subjects.reduce((total, sub) => total + Number(sub.objective), 0)}
+                        </td>
+                        <td className="p-3 md:p-4 text-center text-gray-800 text-sm md:text-base">
+                          {result.subjects.reduce((total, sub) => total + Number(sub.subjective), 0)}
+                        </td>
+                        <td className="p-3 md:p-4 text-center text-teal-600 text-sm md:text-base">
+                          {result.subjects.reduce((total, sub) => total + Number(sub.obtainedSubjectMarks), 0)}
+                        </td>
+                        <td className="p-3 md:p-4 text-center text-teal-600 text-sm md:text-base">
+                          {result.subjects.reduce((total, sub) => total + Number(sub.totalSubjectMarks), 0)}
+                        </td>
+
+                      </tr>
                     </tbody>
                   </table>
                 </div>

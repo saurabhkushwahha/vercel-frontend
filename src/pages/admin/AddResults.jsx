@@ -9,13 +9,15 @@ export default function AddResults() {
     parentName: "",
     testId: "",
     totalMarks: "",
-    obtainedMarks: "",
+    obtainedMarks: ""
+
   });
 
   const [subjects, setSubjects] = useState([]);
   const [subjectName, setSubjectName] = useState("");
   const [subjective, setSubjective] = useState("");
   const [objective, setObjective] = useState("");
+  const [totalSubjectMarks, setTotalSubjectMarks] = useState("");
 
   const [submitStatus, setSubmitStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,11 +39,13 @@ export default function AddResults() {
         name: subjectName,
         subjective: Number(subjective),
         objective: Number(objective),
-        total: Number(subjective) + Number(objective),
+        obtainedSubjectMarks: Number(subjective) + Number(objective),
+        totalSubjectMarks: Number(totalSubjectMarks),
       },
     ]);
 
     setSubjectName("");
+    setTotalSubjectMarks("");
     setSubjective("");
     setObjective("");
   };
@@ -60,7 +64,10 @@ export default function AddResults() {
 
     setIsSubmitting(true);
 
-    const payload = { ...formData, subjects };
+    // Calculation of totalMarks & totalobtainedMarks
+    const totalMarks = subjects.reduce((acc, sub) => acc + sub.totalSubjectMarks, 0)
+    const obtainedMarks = subjects.reduce((acc, sub) => acc + sub.obtainedSubjectMarks, 0)
+    const payload = { ...formData, totalMarks, obtainedMarks, subjects };
 
     try {
       const res = await axios.post("/results", payload, {
@@ -76,6 +83,7 @@ export default function AddResults() {
         testId: "",
         totalMarks: "",
         obtainedMarks: "",
+
       });
       setSubjects([]);
     } catch (err) {
@@ -88,7 +96,7 @@ export default function AddResults() {
     }
   };
 
-  const finalMarks = subjects.reduce((acc, sub) => acc + sub.total, 0);
+  const finalMarks = subjects.reduce((acc, sub) => acc + sub.totalSubjectMarks, 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#043D3B] to-[#0A5C59] py-8 px-4">
@@ -183,42 +191,6 @@ export default function AddResults() {
               </div>
             </div>
 
-            {/* Marks Information */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b-2 border-teal-100">
-                Marks Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Total Marks *
-                  </label>
-                  <input
-                    type="number"
-                    name="totalMarks"
-                    placeholder="Enter total marks"
-                    value={formData.totalMarks}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Obtained Marks *
-                  </label>
-                  <input
-                    type="number"
-                    name="obtainedMarks"
-                    placeholder="Enter obtained marks"
-                    value={formData.obtainedMarks}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
-                  />
-                </div>
-              </div>
-            </div>
 
             {/* Subjects Section */}
             <div className="mb-8">
@@ -267,6 +239,15 @@ export default function AddResults() {
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     />
                   </div>
+                  <div>
+                    <label>Total Marks</label>
+                    <input type="number"
+                      placeholder="Marks"
+                      value={totalSubjectMarks}
+                      onChange={(e) => setTotalSubjectMarks(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    />
+                  </div>
                   <div className="flex items-end">
                     <button
                       type="button"
@@ -287,7 +268,7 @@ export default function AddResults() {
                         <th className="p-4 text-left font-semibold">Subject</th>
                         <th className="p-4 text-center font-semibold">Objective</th>
                         <th className="p-4 text-center font-semibold">Subjective</th>
-                        <th className="p-4 text-center font-semibold">Total</th>
+                        <th className="p-4 text-center font-semibold">Score</th>
                         <th className="p-4 text-center font-semibold">Action</th>
                       </tr>
                     </thead>
@@ -297,7 +278,7 @@ export default function AddResults() {
                           <td className="p-4 font-medium text-gray-800">{sub.name}</td>
                           <td className="p-4 text-center text-gray-600">{sub.objective}</td>
                           <td className="p-4 text-center text-gray-600">{sub.subjective}</td>
-                          <td className="p-4 text-center font-bold text-teal-600">{sub.total}</td>
+                          <td className="p-4 text-center font-bold text-teal-600">{sub.totalSubjectMarks}</td>
                           <td className="p-4 text-center">
                             <button
                               type="button"

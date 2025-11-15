@@ -44,9 +44,9 @@ const router = createBrowserRouter([
       { path: "blog", element: <ResourcesBlog /> },
       {
         path: "show-schedule", element: (
-          <ProtectedRoutes allowedRoles={["admin", "student"]}>
-            <ShowSchedule />
-          </ProtectedRoutes>
+
+          <ShowSchedule />
+
         )
       },
 

@@ -98,7 +98,7 @@ const ShowSchedule = () => {
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800 bg-gradient-to-r from-blue-100 to-blue-200 px-3 py-1 rounded-full shadow-sm">
                       {schedule.className}
                     </h3>
-                    {user.role === "student" ? <BookOpen className="h-6 w-6 text-blue-600" /> : <LucideTrash onClick={() => handleDeleteClick(schedule._id)} className="h-6 w-5 text-red-600 cursor-pointer hover:text-red-400" />}
+                    {/* {user && user.role === "student" ? <BookOpen className="h-6 w-6 text-blue-600" /> : <LucideTrash onClick={() => handleDeleteClick(schedule._id)} className="h-6 w-5 text-red-600 cursor-pointer hover:text-red-400" />} */}
                   </div>
 
                   {/* Subject */}

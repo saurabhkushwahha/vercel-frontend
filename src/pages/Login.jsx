@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff, User, Mail, Lock, ArrowRight, Smartphone, Shield, Users } from "lucide-react";
 import toast from "react-hot-toast";
@@ -16,17 +16,20 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     const res = await login(email, password, role);
-    if (res.success) {
+    if (res?.success) {
       toast.success(`${role === "admin" ? "Admin" : "Student"} logged in successfully ✅`, { position: "top-right" });
       navigate("/")
     } else {
-      setError(res.message);
+      const msg = res?.message || "Login failed. Please try again.";
+      setError(msg);
+      toast.error(msg, { position: "top-right" });
     }
 
     setLoading(false);

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Eye, EyeOff, User, Mail, Lock, ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -32,12 +33,23 @@ export default function Signup() {
     try {
       setIsLoading(true);
 
-      await signup(email, name, password);
+      // Note: signup signature is (name, email, password)
+      const res = await signup(name, email, password);
       setIsLoading(false);
-      navigate("/login");
+      if (res?.success) {
+        toast.success(res.message || "Account created successfully");
+        navigate("/login");
+      } else {
+        const msg = res?.message || "Signup failed. Please try again.";
+        setError(msg);
+        toast.error(msg);
+      }
     } catch (err) {
-      console.error("Signup error:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "Signup failed. Please try again.");
+      // Fallback for unexpected thrown errors
+      console.error("Signup unexpected error:", err);
+      const msg = err?.response?.data?.message || err?.message || "Signup failed. Please try again.";
+      setError(msg);
+      toast.error(msg);
       setIsLoading(false);
     }
   };
